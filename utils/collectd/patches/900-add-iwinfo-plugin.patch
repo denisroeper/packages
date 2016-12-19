@@ -1,16 +1,17 @@
+diff --git a/configure.ac b/configure.ac
+index 993e319..110cff1 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -704,6 +704,9 @@ AC_CHECK_HEADERS(net/pfvar.h,
- have_termios_h="no"
- AC_CHECK_HEADERS(termios.h, [have_termios_h="yes"])
+@@ -803,6 +803,8 @@ AC_CACHE_CHECK([whether clock_boottime and clock_monotonic are supported],
+ 		       [c_cv_have_clock_boottime_monotonic="yes"],
+ 		       [c_cv_have_clock_boottime_monotonic="no"]))
  
 +# For the iwinfo plugin
 +AC_CHECK_LIB(iwinfo, iwinfo_backend, [with_iwinfo="yes"], [with_iwinfo="no (libiwinfo not found)"], [])
-+
+ 
  # For the turbostat plugin
  have_asm_msrindex_h="no"
- AC_CHECK_HEADERS(asm/msr-index.h, [have_asm_msrindex_h="yes"])
-@@ -5310,6 +5313,7 @@ plugin_interface="no"
+@@ -5936,6 +5938,7 @@ plugin_interface="no"
  plugin_ipmi="no"
  plugin_ipvs="no"
  plugin_irq="no"
@@ -18,33 +19,248 @@
  plugin_load="no"
  plugin_log_logstash="no"
  plugin_memory="no"
-@@ -5713,6 +5717,7 @@ AC_PLUGIN([ipmi],        [$plugin_ipmi],
- AC_PLUGIN([iptables],    [$with_libiptc],      [IPTables rule counters])
- AC_PLUGIN([ipvs],        [$plugin_ipvs],       [IPVS connection statistics])
- AC_PLUGIN([irq],         [$plugin_irq],        [IRQ statistics])
+@@ -6406,6 +6409,7 @@ AC_PLUGIN([ipmi],                [$plugin_ipmi],            [IPMI sensor statist
+ AC_PLUGIN([iptables],            [$with_libiptc],           [IPTables rule counters])
+ AC_PLUGIN([ipvs],                [$plugin_ipvs],            [IPVS connection statistics])
+ AC_PLUGIN([irq],                 [$plugin_irq],             [IRQ statistics])
 +AC_PLUGIN([iwinfo],      [$with_iwinfo],       [Common iwinfo wireless statistics])
- AC_PLUGIN([java],        [$with_java],         [Embed the Java Virtual Machine])
- AC_PLUGIN([load],        [$plugin_load],       [System load])
- AC_PLUGIN([logfile],     [yes],                [File logging plugin])
-@@ -6042,6 +6047,7 @@ Configuration:
-     oracle  . . . . . . . $with_oracle
-     protobuf-c  . . . . . $have_protoc_c
-     python  . . . . . . . $with_python
+ AC_PLUGIN([java],                [$with_java],              [Embed the Java Virtual Machine])
+ AC_PLUGIN([load],                [$plugin_load],            [System load])
+ AC_PLUGIN([log_logstash],        [$plugin_log_logstash],    [Logstash json_event compatible logging])
+@@ -6944,6 +6948,210 @@ AC_MSG_RESULT([    zfs_arc . . . . . . . $enable_zfs_arc])
+ AC_MSG_RESULT([    zone  . . . . . . . . $enable_zone])
+ AC_MSG_RESULT([    zookeeper . . . . . . $enable_zookeeper])
+ AC_MSG_RESULT()
++cat <<EOF;
++
++Configuration:
++  Libraries:
++    intel mic . . . . . . $with_mic
++    libaquaero5 . . . . . $with_libaquaero5
++    libatasmart . . . . . $with_libatasmart
++    libcurl . . . . . . . $with_libcurl
++    libdbi  . . . . . . . $with_libdbi
++    libesmtp  . . . . . . $with_libesmtp
++    libganglia  . . . . . $with_libganglia
++    libgcrypt . . . . . . $with_libgcrypt
++    libhal  . . . . . . . $with_libhal
++    libhiredis  . . . . . $with_libhiredis
++    libi2c-dev  . . . . . $with_libi2c
++    libiokit  . . . . . . $with_libiokit
++    libiptc . . . . . . . $with_libiptc
++    libjvm  . . . . . . . $with_java
++    libkstat  . . . . . . $with_kstat
++    libkvm  . . . . . . . $with_libkvm
++    libldap . . . . . . . $with_libldap
++    liblvm2app  . . . . . $with_liblvm2app
++    libmemcached  . . . . $with_libmemcached
++    libmnl  . . . . . . . $with_libmnl
++    libmodbus . . . . . . $with_libmodbus
++    libmongoc . . . . . . $with_libmongoc
++    libmysql  . . . . . . $with_libmysql
++    libnetapp . . . . . . $with_libnetapp
++    libnetsnmp  . . . . . $with_libnetsnmp
++    libnotify . . . . . . $with_libnotify
++    liboconfig  . . . . . $with_liboconfig
++    libopenipmi . . . . . $with_libopenipmipthread
++    liboping  . . . . . . $with_liboping
++    libowcapi . . . . . . $with_libowcapi
++    libpcap . . . . . . . $with_libpcap
++    libperfstat . . . . . $with_perfstat
++    libperl . . . . . . . $with_libperl
++    libpq . . . . . . . . $with_libpq
++    libpthread  . . . . . $with_libpthread
++    librabbitmq . . . . . $with_librabbitmq
++    librdkafka  . . . . . $with_librdkafka
++    librouteros . . . . . $with_librouteros
++    librrd  . . . . . . . $with_librrd
++    libsensors  . . . . . $with_libsensors
++    libsigrok   . . . . . $with_libsigrok
++    libstatgrab . . . . . $with_libstatgrab
++    libtokyotyrant  . . . $with_libtokyotyrant
++    libudev . . . . . . . $with_libudev
++    libupsclient  . . . . $with_libupsclient
++    libvarnish  . . . . . $with_libvarnish
++    libvirt . . . . . . . $with_libvirt
++    libxml2 . . . . . . . $with_libxml2
++    libxmms . . . . . . . $with_libxmms
++    libyajl . . . . . . . $with_libyajl
++    oracle  . . . . . . . $with_oracle
++    protobuf-c  . . . . . $have_protoc_c
++    python  . . . . . . . $with_python
 +    iwinfo  . . . . . . . $with_iwinfo
- 
-   Features:
-     daemon mode . . . . . $enable_daemon
-@@ -6091,6 +6097,7 @@ Configuration:
-     iptables  . . . . . . $enable_iptables
-     ipvs  . . . . . . . . $enable_ipvs
-     irq . . . . . . . . . $enable_irq
++
++  Features:
++    daemon mode . . . . . $enable_daemon
++    debug . . . . . . . . $enable_debug
++
++  Bindings:
++    perl  . . . . . . . . $with_perl_bindings
++
++  Modules:
++    aggregation . . . . . $enable_aggregation
++    amqp    . . . . . . . $enable_amqp
++    apache  . . . . . . . $enable_apache
++    apcups  . . . . . . . $enable_apcups
++    apple_sensors . . . . $enable_apple_sensors
++    aquaero . . . . . . . $enable_aquaero
++    ascent  . . . . . . . $enable_ascent
++    barometer . . . . . . $enable_barometer
++    battery . . . . . . . $enable_battery
++    bind  . . . . . . . . $enable_bind
++    ceph  . . . . . . . . $enable_ceph
++    cgroups . . . . . . . $enable_cgroups
++    conntrack . . . . . . $enable_conntrack
++    contextswitch . . . . $enable_contextswitch
++    cpu . . . . . . . . . $enable_cpu
++    cpufreq . . . . . . . $enable_cpufreq
++    csv . . . . . . . . . $enable_csv
++    curl  . . . . . . . . $enable_curl
++    curl_json . . . . . . $enable_curl_json
++    curl_xml  . . . . . . $enable_curl_xml
++    dbi . . . . . . . . . $enable_dbi
++    df  . . . . . . . . . $enable_df
++    disk  . . . . . . . . $enable_disk
++    dns . . . . . . . . . $enable_dns
++    drbd  . . . . . . . . $enable_drbd
++    email . . . . . . . . $enable_email
++    entropy . . . . . . . $enable_entropy
++    ethstat . . . . . . . $enable_ethstat
++    exec  . . . . . . . . $enable_exec
++    fhcount . . . . . . . $enable_fhcount
++    filecount . . . . . . $enable_filecount
++    fscache . . . . . . . $enable_fscache
++    gmond . . . . . . . . $enable_gmond
++    hddtemp . . . . . . . $enable_hddtemp
++    interface . . . . . . $enable_interface
++    ipc . . . . . . . . . $enable_ipc
++    ipmi  . . . . . . . . $enable_ipmi
++    iptables  . . . . . . $enable_iptables
++    ipvs  . . . . . . . . $enable_ipvs
++    irq . . . . . . . . . $enable_irq
 +    iwinfo  . . . . . . . $enable_iwinfo
-     java  . . . . . . . . $enable_java
-     load  . . . . . . . . $enable_load
-     logfile . . . . . . . $enable_logfile
++    java  . . . . . . . . $enable_java
++    load  . . . . . . . . $enable_load
++    logfile . . . . . . . $enable_logfile
++    log_logstash  . . . . $enable_log_logstash
++    lpar  . . . . . . . . $enable_lpar
++    lvm . . . . . . . . . $enable_lvm
++    madwifi . . . . . . . $enable_madwifi
++    match_empty_counter . $enable_match_empty_counter
++    match_hashed  . . . . $enable_match_hashed
++    match_regex . . . . . $enable_match_regex
++    match_timediff  . . . $enable_match_timediff
++    match_value . . . . . $enable_match_value
++    mbmon . . . . . . . . $enable_mbmon
++    md  . . . . . . . . . $enable_md
++    memcachec . . . . . . $enable_memcachec
++    memcached . . . . . . $enable_memcached
++    memory  . . . . . . . $enable_memory
++    mic . . . . . . . . . $enable_mic
++    modbus  . . . . . . . $enable_modbus
++    multimeter  . . . . . $enable_multimeter
++    mysql . . . . . . . . $enable_mysql
++    netapp  . . . . . . . $enable_netapp
++    netlink . . . . . . . $enable_netlink
++    network . . . . . . . $enable_network
++    nfs . . . . . . . . . $enable_nfs
++    nginx . . . . . . . . $enable_nginx
++    notify_desktop  . . . $enable_notify_desktop
++    notify_email  . . . . $enable_notify_email
++    ntpd  . . . . . . . . $enable_ntpd
++    numa  . . . . . . . . $enable_numa
++    nut . . . . . . . . . $enable_nut
++    olsrd . . . . . . . . $enable_olsrd
++    onewire . . . . . . . $enable_onewire
++    openldap  . . . . . . $enable_openldap
++    openvpn . . . . . . . $enable_openvpn
++    oracle  . . . . . . . $enable_oracle
++    perl  . . . . . . . . $enable_perl
++    pf  . . . . . . . . . $enable_pf
++    pinba . . . . . . . . $enable_pinba
++    ping  . . . . . . . . $enable_ping
++    postgresql  . . . . . $enable_postgresql
++    powerdns  . . . . . . $enable_powerdns
++    processes . . . . . . $enable_processes
++    protocols . . . . . . $enable_protocols
++    python  . . . . . . . $enable_python
++    redis . . . . . . . . $enable_redis
++    routeros  . . . . . . $enable_routeros
++    rrdcached . . . . . . $enable_rrdcached
++    rrdtool . . . . . . . $enable_rrdtool
++    sensors . . . . . . . $enable_sensors
++    serial  . . . . . . . $enable_serial
++    sigrok  . . . . . . . $enable_sigrok
++    smart . . . . . . . . $enable_smart
++    snmp  . . . . . . . . $enable_snmp
++    statsd  . . . . . . . $enable_statsd
++    swap  . . . . . . . . $enable_swap
++    syslog  . . . . . . . $enable_syslog
++    table . . . . . . . . $enable_table
++    tail_csv  . . . . . . $enable_tail_csv
++    tail  . . . . . . . . $enable_tail
++    tape  . . . . . . . . $enable_tape
++    target_notification . $enable_target_notification
++    target_replace  . . . $enable_target_replace
++    target_scale  . . . . $enable_target_scale
++    target_set  . . . . . $enable_target_set
++    target_v5upgrade  . . $enable_target_v5upgrade
++    tcpconns  . . . . . . $enable_tcpconns
++    teamspeak2  . . . . . $enable_teamspeak2
++    ted . . . . . . . . . $enable_ted
++    thermal . . . . . . . $enable_thermal
++    threshold . . . . . . $enable_threshold
++    tokyotyrant . . . . . $enable_tokyotyrant
++    turbostat . . . . . . $enable_turbostat
++    unixsock  . . . . . . $enable_unixsock
++    uptime  . . . . . . . $enable_uptime
++    users . . . . . . . . $enable_users
++    uuid  . . . . . . . . $enable_uuid
++    varnish . . . . . . . $enable_varnish
++    virt  . . . . . . . . $enable_virt
++    vmem  . . . . . . . . $enable_vmem
++    vserver . . . . . . . $enable_vserver
++    wireless  . . . . . . $enable_wireless
++    write_graphite  . . . $enable_write_graphite
++    write_http  . . . . . $enable_write_http
++    write_kafka . . . . . $enable_write_kafka
++    write_log . . . . . . $enable_write_log
++    write_mongodb . . . . $enable_write_mongodb
++    write_redis . . . . . $enable_write_redis
++    write_riemann . . . . $enable_write_riemann
++    write_sensu . . . . . $enable_write_sensu
++    write_tsdb  . . . . . $enable_write_tsdb
++    xmms  . . . . . . . . $enable_xmms
++    zfs_arc . . . . . . . $enable_zfs_arc
++    zookeeper . . . . . . $enable_zookeeper
++
++EOF
+ 
+ if test "x$dependency_error" = "xyes"; then
+ 	AC_MSG_ERROR("Some plugins are missing dependencies - see the summary above for details")
+diff --git a/src/Makefile.am b/src/Makefile.am
+index bd6d901..88c1d8e 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -566,6 +566,13 @@ irq_la_SOURCES = irq.c
+ irq_la_LDFLAGS = $(PLUGIN_LDFLAGS)
+ endif
+ 
++if BUILD_PLUGIN_IWINFO
++pkglib_LTLIBRARIES += iwinfo.la
++iwinfo_la_SOURCES = iwinfo.c
++iwinfo_la_LDFLAGS = -module -avoid-version
++iwinfo_la_LIBADD = -liwinfo
++endif
++
+ if BUILD_PLUGIN_JAVA
+ pkglib_LTLIBRARIES += java.la
+ java_la_SOURCES = java.c
+diff --git a/src/collectd.conf.in b/src/collectd.conf.in
+index e5b9643..f335b86 100644
 --- a/src/collectd.conf.in
 +++ b/src/collectd.conf.in
-@@ -128,6 +128,7 @@
+@@ -135,6 +135,7 @@
  #@BUILD_PLUGIN_IPTABLES_TRUE@LoadPlugin iptables
  #@BUILD_PLUGIN_IPVS_TRUE@LoadPlugin ipvs
  #@BUILD_PLUGIN_IRQ_TRUE@LoadPlugin irq
@@ -52,7 +268,7 @@
  #@BUILD_PLUGIN_JAVA_TRUE@LoadPlugin java
  @BUILD_PLUGIN_LOAD_TRUE@@BUILD_PLUGIN_LOAD_TRUE@LoadPlugin load
  #@BUILD_PLUGIN_LPAR_TRUE@LoadPlugin lpar
-@@ -582,6 +583,12 @@
+@@ -649,6 +650,12 @@
  #	IgnoreSelected true
  #</Plugin>
  
@@ -65,9 +281,11 @@
  #<Plugin java>
  #	JVMArg "-verbose:jni"
  #	JVMArg "-Djava.class.path=@prefix@/share/collectd/java/collectd-api.jar"
+diff --git a/src/collectd.conf.pod b/src/collectd.conf.pod
+index 11cfaeb..c7b643e 100644
 --- a/src/collectd.conf.pod
 +++ b/src/collectd.conf.pod
-@@ -2606,6 +2606,27 @@ and all other interrupts are collected.
+@@ -3127,6 +3127,27 @@ and all other interrupts are collected.
  
  =back
  
@@ -95,6 +313,9 @@
  =head2 Plugin C<java>
  
  The I<Java> plugin makes it possible to write extensions for collectd in Java.
+diff --git a/src/iwinfo.c b/src/iwinfo.c
+new file mode 100644
+index 0000000..8eb7915
 --- /dev/null
 +++ b/src/iwinfo.c
 @@ -0,0 +1,150 @@
@@ -248,28 +469,14 @@
 +	plugin_register_config("iwinfo", iwinfo_config, config_keys, config_keys_num);
 +	plugin_register_read("iwinfo", iwinfo_read);
 +}
---- a/src/Makefile.am
-+++ b/src/Makefile.am
-@@ -457,6 +457,13 @@ irq_la_SOURCES = irq.c
- irq_la_LDFLAGS = $(PLUGIN_LDFLAGS)
- endif
- 
-+if BUILD_PLUGIN_IWINFO
-+pkglib_LTLIBRARIES += iwinfo.la
-+iwinfo_la_SOURCES = iwinfo.c
-+iwinfo_la_LDFLAGS = -module -avoid-version
-+iwinfo_la_LIBADD = -liwinfo
-+endif
-+
- if BUILD_PLUGIN_JAVA
- pkglib_LTLIBRARIES += java.la
- java_la_SOURCES = java.c
+diff --git a/src/types.db b/src/types.db
+index 6855187..6380973 100644
 --- a/src/types.db
 +++ b/src/types.db
-@@ -228,6 +228,7 @@ voltage			value:GAUGE:U:U
- vs_memory		value:GAUGE:0:9223372036854775807
- vs_processes		value:GAUGE:0:65535
- vs_threads		value:GAUGE:0:65535
+@@ -260,6 +260,7 @@ voltage_threshold       value:GAUGE:U:U, threshold:GAUGE:U:U
+ vs_memory               value:GAUGE:0:9223372036854775807
+ vs_processes            value:GAUGE:0:65535
+ vs_threads              value:GAUGE:0:65535
 +stations		value:GAUGE:0:256
  
  #
