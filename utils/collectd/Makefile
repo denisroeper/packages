@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=collectd
-PKG_VERSION:=5.5.2
-PKG_RELEASE:=4
+PKG_VERSION:=5.7.0
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://collectd.org/files/
-PKG_MD5SUM:=40b83343f72089e0330f53965f1140bd
+PKG_MD5SUM:=c5cbe74a5638cac793caa13b3df60ce1
 
 PKG_FIXUP:=autoreconf
 PKG_REMOVE_FILES:=aclocal.m4 libltdl/aclocal.m4
@@ -120,6 +120,7 @@ COLLECTD_PLUGINS_SELECTED:= \
 	madwifi \
 	memory \
 	modbus \
+	mqtt \
 	mysql \
 	netlink \
 	network \
@@ -292,6 +293,7 @@ define BuildPlugin
   define Package/collectd-mod-$(1)/install
 	$(INSTALL_DIR) $$(1)/usr/lib/collectd
 	for m in $(3); do \
+		echo "############################# INSTALLING ${m}"; \
 		$(CP) \
 			$(PKG_INSTALL_DIR)/usr/lib/collectd/$$$$$$$${m}.so \
 			$$(1)/usr/lib/collectd/ ; \
@@ -327,10 +329,11 @@ $(eval $(call BuildPlugin,fscache,file-system based caching framework input,fsca
 $(eval $(call BuildPlugin,interface,network interfaces input,interface,))
 $(eval $(call BuildPlugin,iptables,iptables status input,iptables,+PACKAGE_collectd-mod-iptables:iptables +libiptc))
 $(eval $(call BuildPlugin,irq,interrupt usage input,irq,))
-$(eval $(call BuildPlugin,iwinfo,libiwinfo wireless statistics,iwinfo,+PACKAGE_collectd-mod-iwinfo:libiwinfo))
+$(eval $(call BuildPlugin,iwinfo,libiwinfo wireless statistics,iwinfo,+PACKAGE_collectd-mod-iwinfo:libiwinfo liblua))
 $(eval $(call BuildPlugin,load,system load input,load,))
 $(eval $(call BuildPlugin,logfile,log files output,logfile,))
 $(eval $(call BuildPlugin,madwifi,MadWifi status input,madwifi,))
+$(eval $(call BuildPlugin,mqtt,MQTT protocoll i/o,mqtt,+PACKAGE_collectd-mod-mqtt:libmosquitto))
 #$(eval $(call BuildPlugin,mysql,MySQL status input,mysql,+PACKAGE_collectd-mod-mysql:libmysqlclient-r))
 $(eval $(call BuildPlugin,memory,physical memory usage input,memory,))
 $(eval $(call BuildPlugin,modbus,read variables through libmodbus,modbus,+PACKAGE_collectd-mod-modbus:libmodbus))
